@@ -1,0 +1,12 @@
+prottoy-website/
+├── index.html
+├── admin.html
+├── performance.html
+├── style.css
+├── script.js
+├── admin.js
+├── data.js
+├── prottoy-logo.png        (নিজে বসাবে)
+└── assets/
+    └── docs/
+        └── prottoy-constitution-2nd-edition.pdf   (নিজে বসাবে)

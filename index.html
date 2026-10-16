@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>প্রত্যয় — মানবসেবাই ব্রত</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="top-bar">
+  <span>📧 prottoyorg.bd@gmail.com</span>
+  <a class="top-bar-link" href="performance.html"><i class="fa-solid fa-chart-line"></i> সদস্যদের পারফরম্যান্স দেখুন</a>
+  <span>📍 নাঙ্গলকোট, কুমিল্লা</span>
+</div>
+
+<header>
+<nav class="navbar">
+  <div class="logo"><img src="prottoy-logo.png" alt="প্রত্যয়"><span>প্রত্যয়</span></div>
+  <button id="menuToggle" class="menu-toggle">☰</button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">পরিচিতি</a></li>
+    <li><a href="#committee">কমিটি</a></li>
+    <li><a href="#notices">নোটিশ</a></li>
+    <li><a href="#blood">রক্তদাতা</a></li>
+    <li><a href="#forms">আবেদন ফর্ম</a></li>
+    <li><a href="#constitution">গঠনতন্ত্র</a></li>
+    <li><a href="#contact">যোগাযোগ</a></li>
+    <li><a class="nav-performance-link" href="performance.html">📊 পারফরম্যান্স</a></li>
+  </ul>
+</nav>
+</header>
+
+<section class="hero" id="home">
+  <h1>প্রত্যয়</h1>
+  <p>মানবসেবাই আমাদের ব্রত — ২১ ফেব্রুয়ারি ২০২০ থেকে নাঙ্গলকোট, কুমিল্লায় কাজ করে যাচ্ছে "প্রত্যয়"</p>
+  <div class="hero-actions">
+    <a class="btn btn-primary" href="#blood">🩸 রক্তদাতা খুঁজুন</a>
+    <a class="btn btn-secondary" href="#donor-reg">রক্তদাতা হন</a>
+    <a class="btn btn-ghost" href="performance.html">📊 পারফরম্যান্স দেখুন</a>
+  </div>
+</section>
+
+<section id="about" class="section">
+  <h2>আমাদের পরিচিতি</h2>
+  <p>"প্রত্যয়" একটি অরাজনৈতিক সামাজিক সংগঠন, প্রতিষ্ঠা ২১ ফেব্রুয়ারি ২০২০, নাঙ্গলকোট, কুমিল্লা। মানবসেবা, রক্তদান, শিক্ষা সহায়তা, দুর্যোগ ত্রাণসহ নানা কার্যক্রম পরিচালনা করে আসছে।</p>
+</section>
+
+<section id="committee" class="section soft-section">
+  <h2>পরিচালনা কমিটি</h2>
+  <div class="committee-grid" id="committeeGrid"></div>
+</section>
+
+<section id="notices" class="section">
+  <h2>নোটিশ বোর্ড <span id="noticeCount"></span></h2>
+  <div class="notice-grid" id="noticeGrid"></div>
+</section>
+
+<section id="blood" class="section soft-section">
+  <h2>রক্তদাতা তালিকা (<span id="donorCount"></span>)</h2>
+  <div class="filter-bar">
+    <input type="text" id="searchDonor" placeholder="নাম দিয়ে খুঁজুন">
+    <select id="filterBlood">
+      <option value="">সব গ্রুপ</option>
+      <option>A+</option><option>A-</option><option>B+</option><option>B-</option>
+      <option>AB+</option><option>AB-</option><option>O+</option><option>O-</option>
+    </select>
+    <select id="filterDistrict"></select>
+    <label><input type="checkbox" id="filterAvailable"> শুধু উপলব্ধ</label>
+  </div>
+  <p id="activeFilterText"></p>
+  <div class="donor-grid" id="donorGrid"></div>
+  <div id="emptyState" class="hidden">কোনো দাতা পাওয়া যায়নি।</div>
+</section>
+
+<section id="request" class="section">
+  <h2>রক্তের প্রয়োজন? আবেদন করুন</h2>
+  <form id="requestForm">
+    <input type="text" name="patientName" placeholder="রোগীর নাম" required>
+    <select name="blood" required>
+      <option value="">রক্তের গ্রুপ</option>
+      <option>A+</option><option>A-</option><option>B+</option><option>B-</option>
+      <option>AB+</option><option>AB-</option><option>O+</option><option>O-</option>
+    </select>
+    <input type="text" name="hospital" placeholder="হাসপাতালের নাম" required>
+    <input type="text" name="district" placeholder="জেলা" required>
+    <input type="text" name="upazila" placeholder="উপজেলা" required>
+    <input type="tel" name="phone" placeholder="যোগাযোগ নম্বর" required>
+    <input type="date" name="dateNeeded" required>
+    <button type="submit" class="btn btn-secondary">আবেদন জমা দিন</button>
+  </form>
+</section>
+
+<section id="donor-reg" class="section soft-section">
+  <h2>রক্তদাতা হতে চাই</h2>
+  <form id="donorForm">
+    <input type="text" name="name" placeholder="আপনার নাম" required>
+    <select name="blood" required>
+      <option value="">রক্তের গ্রুপ</option>
+      <option>A+</option><option>A-</option><option>B+</option><option>B-</option>
+      <option>AB+</option><option>AB-</option><option>O+</option><option>O-</option>
+    </select>
+    <input type="tel" name="phone" placeholder="মোবাইল নম্বর" required>
+    <input type="text" name="district" placeholder="জেলা" required>
+    <input type="text" name="upazila" placeholder="উপজেলা" required>
+    <input type="number" name="age" placeholder="বয়স" required>
+    <label><input type="checkbox" name="consent" required> আমি রক্তদানে সম্মত আছি</label>
+    <button type="submit" class="btn btn-primary">জমা দিন</button>
+  </form>
+</section>
+
+<section id="forms" class="section">
+  <h2>আবেদন ফর্মসমূহ</h2>
+  <div class="forms-grid">
+    <a class="form-card-link" target="_blank" rel="noopener" href="https://forms.gle/qJJN9jSNS6PbxrVt6">🚰 টিউবওয়েল আবেদন ফর্ম</a>
+    <a class="form-card-link" target="_blank" rel="noopener" href="https://forms.gle/kb5ozmsSGzrXQFmZ8">🧥 শীতবস্ত্র আবেদন ফর্ম</a>
+    <a class="form-card-link member-card" target="_blank" rel="noopener" href="https://forms.gle/FKyNoSisCo4jXYbj9">🤝 সদস্য হতে চাই</a>
+    <a class="form-card-link" target="_blank" rel="noopener" href="https://forms.gle/bqZFdhKyJe4bS5fU7">🏠 ঘর নির্মাণ আবেদন ফর্ম</a>
+    <a class="form-card-link" target="_blank" rel="noopener" href="https://forms.gle/gMu9eK76CmSQtLFp6">🏥 প্রত্যয় চিকিৎসা সহায়তা ফর্ম</a>
+    <a class="form-card-link" target="_blank" rel="noopener" href="https://forms.gle/7Ayqh2TZijWuuNfb9">🫒 তেল-মশলা বিতরণ রিকুয়েস্ট ফর্ম</a>
+  </div>
+</section>
+
+<section id="constitution" class="section soft-section">
+  <h2>গঠনতন্ত্র</h2>
+  <p>প্রত্যয় গঠনতন্ত্র, ২য় সংস্করণ — সম্পূর্ণ পিডিএফ দেখতে নিচে ক্লিক করুন।</p>
+  <a class="btn btn-primary" href="assets/docs/prottoy-constitution-2nd-edition.pdf" target="_blank">📄 PDF ডাউনলোড করুন</a>
+</section>
+
+<section id="contact" class="section">
+  <h2>যোগাযোগ করুন</h2>
+  <form id="contactForm">
+    <input type="text" name="name" placeholder="আপনার নাম" required>
+    <input type="email" name="email" placeholder="ইমেইল" required>
+    <textarea name="message" placeholder="আপনার বার্তা" rows="4" required></textarea>
+    <button type="submit" class="btn btn-primary">পাঠিয়ে দিন</button>
+  </form>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-col">
+      <h3>প্রত্যয়</h3>
+      <p>মানবসেবাই আমাদের ব্রত। নাঙ্গলকোট, কুমিল্লা।</p>
+    </div>
+    <div class="footer-col">
+      <h4>গুরুত্বপূর্ণ লিংক</h4>
+      <ul>
+        <li><a href="#committee">কমিটি</a></li>
+        <li><a href="#notices">নোটিশ বোর্ড</a></li>
+        <li><a href="#blood">রক্তদাতা তালিকা</a></li>
+        <li><a href="#request">রক্তের আবেদন</a></li>
+        <li><a href="#forms">আবেদন ফর্মসমূহ</a></li>
+        <li><a href="performance.html">পারফরম্যান্স</a></li>
+        <li><a href="assets/docs/prottoy-constitution-2nd-edition.pdf" target="_blank">গঠনতন্ত্র PDF</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>যোগাযোগ</h4>
+      <p>prottoyorg.bd@gmail.com</p>
+      <p>নাঙ্গলকোট, কুমিল্লা</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; <span id="year"></span> প্রত্যয়। সর্বস্বত্ব সংরক্ষিত।</span>
+    <a href="admin.html" title="Admin Login" style="opacity:.45;"><i class="fa-solid fa-lock"></i></a>
+  </div>
+</footer>
+
+<button id="backToTop" class="back-to-top">↑</button>
+
+<script src="data.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Panel — প্রত্যয়</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="loginView">
+  <div class="admin-login-wrap">
+    <h2>এডমিন লগইন</h2>
+    <form id="adminLoginForm">
+      <input type="email" id="adminEmail" placeholder="ইমেইল" required>
+      <input type="password" id="adminPassword" placeholder="পাসওয়ার্ড" required>
+      <button type="submit" class="btn btn-primary">লগইন করুন</button>
+      <p id="loginError" class="error-msg"></p>
+    </form>
+  </div>
+</div>
+
+<div id="dashboardView" style="display:none;">
+  <div class="admin-topbar">
+    <h3>প্রত্যয় এডমিন প্যানেল</h3>
+    <div>
+      <a href="index.html" style="color:#fff;margin-right:16px;">সাইটে ফিরুন</a>
+      <button id="logoutBtn" class="btn btn-danger btn-sm">লগআউট</button>
+    </div>
+  </div>
+
+  <div class="admin-body">
+    <div class="admin-side">
+      <button class="tab-btn active" data-tab="notices">নোটিশ</button>
+      <button class="tab-btn" data-tab="committee">কমিটি</button>
+      <button class="tab-btn" data-tab="donorRequests">রক্তদাতা অনুরোধ</button>
+      <button class="tab-btn" data-tab="donors">অনুমোদিত রক্তদাতা</button>
+      <button class="tab-btn" data-tab="bloodRequests">রক্তের আবেদন</button>
+      <button class="tab-btn" data-tab="performance">পারফরম্যান্স</button>
+    </div>
+
+    <div class="admin-main">
+
+      <!-- নোটিশ -->
+      <div class="admin-panel active" id="panel-notices">
+        <div class="admin-card">
+          <h3>নতুন নোটিশ যুক্ত করুন</h3>
+          <form id="noticeForm">
+            <input type="text" id="noticeTitle" placeholder="শিরোনাম" required>
+            <textarea id="noticeBody" placeholder="বিস্তারিত" rows="3" required></textarea>
+            <button type="submit" class="btn btn-primary">প্রকাশ করুন</button>
+          </form>
+        </div>
+        <div class="admin-card">
+          <table class="admin-table" id="noticeTable"></table>
+        </div>
+      </div>
+
+      <!-- কমিটি -->
+      <div class="admin-panel" id="panel-committee">
+        <div class="admin-card">
+          <h3>কমিটি সদস্য যুক্ত করুন</h3>
+          <form id="committeeForm">
+            <input type="file" id="committeePhoto" accept="image/*">
+            <input type="text" id="committeeName" placeholder="নাম" required>
+            <input type="text" id="committeePosition" placeholder="পদবি" required>
+            <input type="number" id="committeeOrder" placeholder="ক্রম নম্বর" required>
+            <button type="submit" class="btn btn-primary">যুক্ত করুন</button>
+          </form>
+        </div>
+        <div class="admin-card">
+          <table class="admin-table" id="committeeTable"></table>
+        </div>
+      </div>
+
+      <!-- রক্তদাতা অনুরোধ -->
+      <div class="admin-panel" id="panel-donorRequests">
+        <div class="admin-card">
+          <h3>রক্তদাতা হওয়ার অনুরোধসমূহ</h3>
+          <table class="admin-table" id="donorRequestTable"></table>
+        </div>
+      </div>
+
+      <!-- অনুমোদিত রক্তদাতা -->
+      <div class="admin-panel" id="panel-donors">
+        <div class="admin-card">
+          <h3>অনুমোদিত রক্তদাতা তালিকা</h3>
+          <table class="admin-table" id="donorTable"></table>
+        </div>
+      </div>
+
+      <!-- রক্তের আবেদন -->
+      <div class="admin-panel" id="panel-bloodRequests">
+        <div class="admin-card">
+          <h3>রক্তের জন্য আবেদনসমূহ</h3>
+          <table class="admin-table" id="bloodRequestTable"></table>
+        </div>
+      </div>
+
+      <!-- পারফরম্যান্স -->
+      <div class="admin-panel" id="panel-performance">
+        <div class="admin-card">
+          <h3>পারফরম্যান্স এন্ট্রি যুক্ত করুন</h3>
+          <form id="performanceForm">
+            <input type="text" id="perfName" placeholder="নাম" required>
+            <input type="text" id="perfPosition" placeholder="পদবি" required>
+            <input type="number" id="perfChairmanMonths" placeholder="কমিটি প্রধান হিসেবে মাস" required>
+            <input type="number" id="perfTotalMonths" placeholder="মোট সক্রিয় মাস" required>
+            <input type="number" id="perfFeesPaid" placeholder="চাঁদা পরিশোধিত মাস" required>
+            <input type="number" id="perfTotalPrograms" placeholder="মোট প্রোগ্রাম সংখ্যা" required>
+            <input type="number" id="perfParticipated" placeholder="অংশগ্রহণকৃত প্রোগ্রাম" required>
+            <input type="number" id="perfMembersAdded" placeholder="নতুন সদস্য সংযুক্ত" required>
+            <button type="submit" class="btn btn-primary">যুক্ত করুন</button>
+          </form>
+        </div>
+        <div class="admin-card">
+          <table class="admin-table" id="performanceTable"></table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

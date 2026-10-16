@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>পারফরম্যান্স — প্রত্যয়</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;600;800&display=swap">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="logo"><img src="prottoy-logo.png" alt="প্রত্যয়"><span>প্রত্যয়</span></div>
+  <ul class="nav-links">
+    <li><a href="index.html">হোম</a></li>
+    <li><a href="index.html#committee">কমিটি</a></li>
+    <li><a href="index.html#blood">রক্তদাতা</a></li>
+    <li><a href="index.html#forms">আবেদন ফর্ম</a></li>
+    <li><a class="nav-performance-link" href="performance.html">পারফরম্যান্স</a></li>
+  </ul>
+</nav>
+
+<section class="performance-hero">
+  <h1>সদস্যদের পারফরম্যান্স</h1>
+  <p>চাঁদা পরিশোধ, প্রোগ্রাম অংশগ্রহণ ও সার্বিক অবদানের ভিত্তিতে র‍্যাংকিং — সম্পূর্ণ পাবলিক, সবাই দেখতে পারবেন।</p>
+  <div class="performance-summary-grid">
+    <div>মোট সদস্য<br><b id="totalMembersStat">0</b></div>
+    <div>গড় চাঁদা পারফরম্যান্স<br><b id="avgFeeStat">0%</b></div>
+    <div>গড় প্রোগ্রাম পারফরম্যান্স<br><b id="avgProgramStat">0%</b></div>
+  </div>
+  <input type="text" id="perfSearch" class="perf-search" placeholder="নাম দিয়ে খুঁজুন">
+</section>
+
+<div class="performance-table-wrap">
+<table class="performance-table">
+  <thead>
+    <tr>
+      <th>ক্রম</th>
+      <th>নাম</th>
+      <th>পদবি</th>
+      <th>মাসিক চাঁদা পারফরম্যান্স</th>
+      <th>প্রোগ্রাম পারফরম্যান্স</th>
+      <th>সার্বিক পারফরম্যান্স</th>
+      <th>কমিটি প্রধান (মাস)</th>
+      <th>মোট প্রোগ্রাম</th>
+      <th>অংশগ্রহণ</th>
+      <th>নতুন সদস্য সংযুক্ত</th>
+    </tr>
+  </thead>
+  <tbody id="performanceBody"></tbody>
+</table>
+</div>
+
+<footer>
+  <div class="footer-bottom">
+    <span>&copy; <span id="year"></span> প্রত্যয়। সর্বস্বত্ব সংরক্ষিত।</span>
+    <a href="admin.html" title="Admin Login" style="opacity:.45;"><i class="fa-solid fa-lock"></i></a>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script>
+document.getElementById("year").textContent = new Date().getFullYear();
+
+function computeScores(p) {
+  var feeScore = p.totalMonths > 0 ? Math.min(100, (p.feesPaid / p.totalMonths) * 100) : 0;
+  var programScore = p.totalPrograms > 0 ? Math.min(100, (p.participated / p.totalPrograms) * 100) : 0;
+  var overall = (feeScore * 0.5) + (programScore * 0.5);
+  return { feeScore: feeScore, programScore: programScore, overall: overall };
+}
+
+function render() {
+  var list = readStore(STORAGE_KEYS.performance, []);
+  var search = document.getElementById("perfSearch").value.toLowerCase();
+  var filtered = list.filter(function(p){ return p.name.toLowerCase().indexOf(search) !== -1; });
+
+  var scored = filtered.map(function(p){
+    var s = computeScores(p);
+    return Object.assign({}, p, { scores: s });
+  });
+  scored.sort(function(a,b){ return b.scores.overall - a.scores.overall; });
+
+  document.getElementById("totalMembersStat").textContent = list.length;
+  if (list.length > 0) {
+    var avgFee = list.reduce(function(s,p){ return s + computeScores(p).feeScore; }, 0) / list.length;
+    var avgProgram = list.reduce(function(s,p){ return s + computeScores(p).programScore; }, 0) / list.length;
+    document.getElementById("avgFeeStat").textContent = avgFee.toFixed(0) + "%";
+    document.getElementById("avgProgramStat").textContent = avgProgram.toFixed(0) + "%";
+  } else {
+    document.getElementById("avgFeeStat").textContent = "0%";
+    document.getElementById("avgProgramStat").textContent = "0%";
+  }
+
+  var body = document.getElementById("performanceBody");
+  if (scored.length === 0) {
+    body.innerHTML = "<tr><td colspan='10'>এখনো কোনো পারফরম্যান্স তথ্য যুক্ত করা হয়নি।</td></tr>";
+    return;
+  }
+
+  body.innerHTML = scored.map(function(p, i){
+    var rankClass = i === 0 ? "gold" : i === 1 ? "silver" : i === 2 ? "bronze" : "";
+    return "<tr>" +
+      "<td class='perf-rank " + rankClass + "'>" + (i+1) + "</td>" +
+      "<td>" + p.name + "</td>" +
+      "<td>" + p.position + "</td>" +
+      "<td>" + p.scores.feeScore.toFixed(0) + "%</td>" +
+      "<td>" + p.scores.programScore.toFixed(0) + "%</td>" +
+      "<td class='perf-score'>" + p.scores.overall.toFixed(0) + "%</td>" +
+      "<td>" + p.chairmanMonths + "</td>" +
+      "<td>" + p.totalPrograms + "</td>" +
+      "<td>" + p.participated + "</td>" +
+      "<td>" + p.membersAdded + "</td>" +
+    "</tr>";
+  }).join("");
+}
+
+document.getElementById("perfSearch").addEventListener("input", render);
+render();
+</script>
+</body>
+</html>
